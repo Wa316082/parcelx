@@ -1,4 +1,3 @@
-// app/(auth)/register/page.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -20,10 +19,12 @@ export default function RegisterPage() {
         setLoading(true);
 
         const form = e.currentTarget;
-        const name = (form.name as HTMLInputElement).value.trim();
-        const email = (form.email as HTMLInputElement).value.trim();
-        const password = (form.password as HTMLInputElement).value;
-        const confirm = (form.confirm as HTMLInputElement).value;
+        const fd = new FormData(form);
+
+        const name = (fd.get('name') ?? '').toString().trim();
+        const email = (fd.get('email') ?? '').toString().trim();
+        const password = (fd.get('password') ?? '').toString();
+        const confirm = (fd.get('confirm') ?? '').toString();
 
         if (!name || !email || !password) {
             setError('Please fill all required fields.');
@@ -63,7 +64,7 @@ export default function RegisterPage() {
     return (
         <div className="relative min-h-[80vh]">
             <Image src="/login.jpg" alt="ParcelX background" fill className="object-cover" priority />
-            <div className="absolute inset-0 bg-black/35" />
+            <div className="absolute inset-0 bg-gradient-to-l from-cyan-700/90 to-cyan-700/20" />
 
             <div className="absolute inset-0 flex items-center">
                 <div className="container mx-auto px-6">
@@ -78,7 +79,7 @@ export default function RegisterPage() {
                         <div className="w-full md:w-1/2 flex justify-end z-10">
                             <form
                                 onSubmit={handleRegister}
-                                className="bg-white bg-opacity-95 p-8 rounded-xl shadow-md w-full max-w-md m-6"
+                                className=" bg-opacity-95 p-8 rounded-xl shadow-md w-full max-w-md m-6 border border-white text-white"
                             >
                                 <h2 className="text-2xl font-bold text-center mb-6">Create your account</h2>
 
@@ -88,7 +89,7 @@ export default function RegisterPage() {
                                 <div className="mb-4">
                                     <label className="block text-sm mb-1">Full name</label>
                                     <div className="flex items-center border rounded px-3">
-                                        <FaUser className="text-gray-400" />
+                                        <FaUser className="text-gray-100" />
                                         <input name="name" type="text" required className="w-full p-2 outline-none" />
                                     </div>
                                 </div>
@@ -96,7 +97,7 @@ export default function RegisterPage() {
                                 <div className="mb-4">
                                     <label className="block text-sm mb-1">Email</label>
                                     <div className="flex items-center border rounded px-3">
-                                        <FaEnvelope className="text-gray-400" />
+                                        <FaEnvelope className="text-gray-100" />
                                         <input name="email" type="email" required className="w-full p-2 outline-none" />
                                     </div>
                                 </div>
@@ -104,7 +105,7 @@ export default function RegisterPage() {
                                 <div className="mb-4">
                                     <label className="block text-sm mb-1">Password</label>
                                     <div className="flex items-center border rounded px-3">
-                                        <FaLock className="text-gray-400" />
+                                        <FaLock className="text-gray-100" />
                                         <input name="password" type="password" minLength={6} required className="w-full p-2 outline-none" />
                                     </div>
                                 </div>
@@ -112,7 +113,7 @@ export default function RegisterPage() {
                                 <div className="mb-6">
                                     <label className="block text-sm mb-1">Confirm password</label>
                                     <div className="flex items-center border rounded px-3">
-                                        <FaLock className="text-gray-400" />
+                                        <FaLock className="text-gray-100" />
                                         <input name="confirm" type="password" minLength={6} required className="w-full p-2 outline-none" />
                                     </div>
                                 </div>
@@ -120,20 +121,20 @@ export default function RegisterPage() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
+                                    className="w-full py-2 bg-amber-600 hover:bg-amber-700 rounded text-white font-semibold transition-colors disabled:opacity-50"
                                 >
                                     {loading ? 'Creating account...' : 'Register'}
                                 </button>
 
                                 <div className="mt-4 text-sm flex flex-col items-center gap-2 md:flex-row md:justify-between">
-                                    <p className="text-gray-700">
+                                    <p className="text-white">
                                         Already have an account?{' '}
-                                        <Link href="/login" className="font-medium underline text-indigo-600 hover:text-indigo-700">
+                                        <Link href="/login" className="font-medium underline hover:text-indigo-200">
                                             Login
                                         </Link>
                                     </p>
 
-                                    <Link href="/forgot-password" className="text-indigo-600 underline hover:text-indigo-700">
+                                    <Link href="/forgot-password" className="font-medium underline hover:text-indigo-200">
                                         Forgot password?
                                     </Link>
                                 </div>
