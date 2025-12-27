@@ -85,8 +85,8 @@ export default function PricingSection() {
                                 ))}
                             </ul>
 
-                            <Link href='/login' className="w-full py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 cursor-pointer">
-                                Choose Plan
+                            <Link href='/book' className="w-full py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 cursor-pointer text-center block font-semibold">
+                                Book Now
                             </Link>
                         </div>
                     ))}
